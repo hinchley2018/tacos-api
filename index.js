@@ -4,6 +4,7 @@
 const express = require('express')
 
 //load our libraries
+const tacoRoutes = require('./routes/tacoRoutes')
 const orderRoutes = require('./routes/orderRoutes')
 
 //create an instance of the app
@@ -11,13 +12,6 @@ const app = express()
 
 //Apply middleware
 app.use(express.json())
-
-//temporary data (to be replaced by db)
-let tacos = [
-    {name: "Breakfast Taco", ingredients: ["meat","cheese","bacon"], price: 1.29, inventory: 50},
-    {name: "Vegan Taco", ingredients: ["soy","sadness","tears"], price: 8.29, inventory: 5},
-    {name: "Loaded Taco", ingredients: ["meat","cheese","guacomole","beans", "bacon bits"], price: 6.29, inventory: 50}
-]
 
 //request handlers
 //path, callback(request,response)
@@ -28,6 +22,8 @@ app.get("/", (req,res) => {
     //respond
     res.send("Hello from GET /")
 })
+
+app.use('/tacos', tacoRoutes)
 
 app.use('/orders', orderRoutes)
 
